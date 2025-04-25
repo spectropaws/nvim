@@ -44,6 +44,8 @@ return {
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.pylsp.setup({ capabilities = capabilities })
 			lspconfig.sqlls.setup({ capabilities = capabilities })
+            lspconfig.bashls.setup({ capabilities = capabilities })
+            lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 
 			vim.keymap.set("n", "<leader>cH", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.definition, {})
