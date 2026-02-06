@@ -22,6 +22,8 @@ return {
 					"ts_ls",
 					"pylsp",
 					"sqlls",
+					"bashls",
+					"rust_analyzer",
 				},
 			})
 		end,
@@ -29,27 +31,37 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities =
+				require("cmp_nvim_lsp").default_capabilities()
 
-			lspconfig.lua_ls.setup({ capabilities = capabilities })
-			lspconfig.clangd.setup({ capabilities = capabilities })
-			lspconfig.cssls.setup({ capabilities = capabilities })
-			lspconfig.cssmodules_ls.setup({ capabilities = capabilities })
-			lspconfig.css_variables.setup({ capabilities = capabilities })
-			lspconfig.eslint.setup({ capabilities = capabilities })
-			lspconfig.html.setup({ capabilities = capabilities })
-			lspconfig.jsonls.setup({ capabilities = capabilities })
-			lspconfig.jdtls.setup({ capabilities = capabilities })
-			lspconfig.ts_ls.setup({ capabilities = capabilities })
-			lspconfig.pylsp.setup({ capabilities = capabilities })
-			lspconfig.sqlls.setup({ capabilities = capabilities })
-            lspconfig.bashls.setup({ capabilities = capabilities })
-            lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+			local servers = {
+				"lua_ls",
+				"clangd",
+				"cssls",
+				"cssmodules_ls",
+				"css_variables",
+				"eslint",
+				"html",
+				"jsonls",
+				"jdtls",
+				"ts_ls",
+				"pylsp",
+				"sqlls",
+				"bashls",
+				"rust_analyzer",
+			}
 
-			vim.keymap.set("n", "<leader>cH", vim.lsp.buf.hover, {})
-			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.definition, {})
-			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
+			for _, server in ipairs(servers) do
+				vim.lsp.config(server, {
+					capabilities = capabilities,
+				})
+				vim.lsp.enable(server)
+			end
+
+			-- Keymaps
+			vim.keymap.set("n", "<leader>cH", vim.lsp.buf.hover)
+			vim.keymap.set("n", "<leader>cD", vim.lsp.buf.definition)
+			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
 		end,
 	},
 }
