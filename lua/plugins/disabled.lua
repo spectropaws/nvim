@@ -1,4 +1,4 @@
 return {
-    { "Exafunction/codeium.vim", enabled = false },
+    { "Exafunction/codeium.vim", enabled = true },
     { "github/copilot.vim", enabled = true }
 }
